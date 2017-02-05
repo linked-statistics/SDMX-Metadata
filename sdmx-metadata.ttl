@@ -1,0 +1,108 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix voaf: <http://purl.org/vocommons/voaf#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix cc: <http://creativecommons.org/ns#> .
+
+#################################################################
+# Ontology
+#################################################################
+
+<http://example.org/sdmx-mm> a owl:Ontology, voaf:Vocabulary ;
+    dc:title "A vocabulary for representing SDMX metadata"@en ;
+    dc:creator "Franck Cotton" ;
+    vann:preferredNamespacePrefix "sdmx-mm" ;
+    vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
+    cc:license <http://creativecommons.org/licenses/by/4.0/> ;
+    voaf:classNumber "2"^^xsd:integer ;
+    voaf:propertyNumber "6"^^xsd:integer ;
+    owl:versionInfo "Version 0.1 - 2017-02-04" .
+
+
+#################################################################
+# Classes
+#################################################################
+
+# RDF property corresponding to the SDMX metadata attribute
+
+sdmx-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
+    rdfs:label "Metadata attribute"@en;
+    rdfs:subClassOf rdf:Property;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Specification related to a metadata attribute
+
+sdmx-mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
+    rdfs:label "Metadata attribute specification"@en;
+    rdfs:comment "Used to define properties of a metadata attribute which are specific to its usage in an MSD."@en;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+
+#################################################################
+# Data properties
+#################################################################
+
+# Presentational attributes are used to structure a report and do not have values
+
+sdmx-mm:isPresentational a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "is presentational"@en;
+    rdfs:comment "When true, indicates that an attribute is for presentation purpose only and cannot have a value by itself."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:boolean;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Indicates the order of the attributes in the report
+
+sdmx-mm:order a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "order"@en;
+    rdfs:comment "Indicates a priority order for the attributes of metadata sets with this structure."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Maximum number of occurrences of the attribute in a given context
+
+sdmx-mm:minOccurs a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "minOccurs"@en;
+    rdfs:comment "Specifies the minimum number of occurrences of the metadata attribute that may be reported at this point in the metadata report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Maximum number of occurrences of the attribute in a given context
+
+sdmx-mm:maxOccurs a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "maxOccurs"@en;
+    rdfs:comment "Specifies the maximum number of occurrences of the metadata attribute that may be reported at this point in the metadata report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+
+#################################################################
+# Object properties
+#################################################################
+
+# Links a metadata attribute specification to its metadata attribute
+
+sdmx-mm:metadataAttributeProperty a rdf:Property, owl:ObjectProperty;
+    rdfs:label "metadata attribute"@en;
+    rdfs:comment "Indicates a metadata attribute property associated to the metadata attribute specification."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range sdmx-mm:MetadataAttributeProperty;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Links a metadata attribute to its parent
+
+sdmx-mm:parent a rdf:Property, owl:ObjectProperty;
+    rdfs:label "parent"@en;
+    rdfs:comment "Associates a metadata attribute to its parent in the report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range sdmx-mm:MetadataAttributeSpecification;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.

@@ -15,7 +15,7 @@
 				],
 				wgPatentURI: "http://creativecommons.org/licenses/by/4.0/",
 				processVersion: 2015,
-				edDraftURI: "http://some.github.repo",
+				edDraftURI: "https://github.com/linked-statistics/SDMX-Metadata",
 				localBiblio: {
 					"SDMX-MM": {
 						title: "SDMX 2.1 information model, Chapter 7",
@@ -29,7 +29,7 @@
 	<body>
 
 		<section id='abstract'>
-			<p>We try in this paper to express the &#8220;metadata&#8221; part of the SDMX information model (Metadata Structure Definition and Metadata Set) ([[!SDMX-MM]]) using RDF and related standards. We will take example on the work done for the Data Cube  ([[!vocab-data-cube]]), which is an RDF vocabulary expressing the &#8220;data&#8221; part of the SDMX model. We use in the following the <code>mm</code> prefix for the namespace (to be specified) where we define the vocabulary.</p>
+			<p>We try in this paper to express the &#8220;metadata&#8221; part of the SDMX information model (Metadata Structure Definition and Metadata Set) ([[!SDMX-MM]]) using RDF and related standards. We will take example on the work done for the Data Cube  ([[!vocab-data-cube]]), which is an RDF vocabulary expressing the &#8220;data&#8221; part of the SDMX model. We use in the following the <code>sdmx-mm</code> prefix for the namespace (to be specified) where we define the vocabulary.</p>
 		</section>
 
 		<section id='sotd'>
@@ -66,7 +66,7 @@
 			<div class="issue">
 				<p>Define namespace.</p>
 			</div>
-			<p>The prefix <code>mm</code> will be associated to this namespace in all this specification.</p>
+			<p>The prefix <code>sdmx-mm</code> will be associated to this namespace in all this specification.</p>
 			<p>The SDMX-MM vocabulary is a set of URIs, given in the left-hand column in the table below. The right hand column indicates in which section below the corresponding term is explained in more detail.</p>
 			<table class="simple">
 				<caption>Table 1. SDMX-MM Vocabulary</caption>
@@ -78,7 +78,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>mm:MetadataAttributeProperty</td>
+						<td>sdmx-mm:MetadataAttributeProperty</td>
 						<td><a href="#msd">Section ?. Metadata Structure Definition</a></td>
 					</tr>
 				</tbody>
@@ -123,18 +123,18 @@
 		<section id="metadata-structure-definition">
 			<h2>The Metadata Structure Definition</h2>
 			<section id="metadata-attribute">
-						<h2>The Metadata Attribute</h2>
+				<h3>The Metadata Attribute</h2>
 				<p>An important design choice in Data Cube is to represent Data Structure Definition (DSD) components as RDF properties. The <code>qb:ComponentProperty</code> class is a sub-class of <code>rdf:Property</code>, and is itself specialized into <code>qb:DimensionProperty</code>, <code>qb:AttributeProperty</code>, etc. This allows to directly attach to the observations (instances of the <code>qb:Observation</code> class) the values of the dimensions, measures or attributes defined in the DSD.</p>
 
 				<p>In the SDMX Metadata Structure Definition (MSD), the metadata attribute is the equivalent of the DSD components. Therefore, following the Data Cube approach, we create:</p>
 <pre><code>
-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
+sdmx-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute"@en;
     rdfs:subClassOf rdf:Property.
 </code></pre>
 				<p>SDMX defines properties for the metadata attribute: a boolean <code>isPresentational</code> and integers1 giving the minimum and maximum number of occurrences of the attribute in a hierarchical context (see below). Likewise, the DSD dimension components have an order property, but the Data Cube model does not associate the order property to the <code>qb:DimensionPropery</code> or even to the <code>qb:ComponentProperty</code> but to a specific &#8220;enveloping&#8221; class, <code>qb:ComponentSpecification</code>. This allows a given dimension to be re-used in different DSDs, even if it does not appear at the same position. Similarly, we can define a specific class:</p>
 <pre><code>
-mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
+sdmx-mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute specification"@en;
     rdfs:comment "Used to define properties of a metadata attribute which
         are specific to its usage in an MSD."@en.
@@ -143,23 +143,62 @@ mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
 				<p>and the property that links it to the metadata attribute:</p>
 
 <pre><code>
-mm:metadataAttributeProperty a rdf:Property, owl:ObjectProperty;
+sdmx-mm:metadataAttributeProperty a rdf:Property, owl:ObjectProperty;
     rdfs:label "metadata attribute"@en;
-    rdfs:comment "Indicates a MetadataAttributeProperty associated to the
+    rdfs:comment "Indicates a metadata attribute property associated to the
         metadata attribute specification"@en;
-    rdfs:domain mm:MetadataAttributeSpecification;
-    rdfs:range mm:MetadataAttributeProperty.
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range sdmx-mm:MetadataAttributeProperty.
 </code></pre>
 
 				<p>We can now define the <code>isPresentational</code> property and attach it to the attribute specification rather than to the attribute property, so that a given metadata attribute can be presentational in a given MSD and not in an other one.</p>
 
 <pre><code>
-md:isPresentational a rdf:Property, owl:DatatypeProperty;
+sdmx-mm:isPresentational a rdf:Property, owl:DatatypeProperty;
     rdfs:label "is presentational"@en;
     rdfs:comment "When true, indicates that an attribute is for
         presentation purpose only and cannot have a value by itself."@en;
-    rdfs:domain md:MetadataAttributeSpecification;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:boolean.
+</code></pre>
+
+				<p>The SDMX model does not explicitly define an order property for metadata attributes, although the XML Schema representation of the model implies that attributes are in a defined order. For a RDF representation, we will need to explicitly represent the order of the attributes. We cannot re-use the <code>qb:order</code> property because its domain is restricted to <code>qb:ComponentSpecification</code>, but we can adapt the definition:</p>
+
+<pre><code>
+sdmx-mm:order a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "order"@en;
+    rdfs:comment "Indicates a priority order for the attributes of
+        metadata sets with this structure."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int.
+</code></pre>
+
+				<p>Metadata attributes can be organized in hierarchies: this is represented by a <code>parent/child</code> self association. Finally, the SDMX model also defines the <code>minOccurs</code> and <code>maxOccurs</code> integer attributes to specify the minimum and maximum of times a metadata attribute can appear in a given hierarchical context. Once again, we can report these features on the attribute specification:</p>
+
+<pre><code>
+sdmx-mm:parent a rdf:Property, owl:ObjectProperty;
+    rdfs:label "parent"@en;
+    rdfs:comment "Associates a metadata attribute to its parent in the report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range sdmx-mm:MetadataAttributeSpecification.
+</code></pre>
+
+<pre><code>
+sdmx-mm:minOccurs a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "minOccurs"@en;
+    rdfs:comment "Specifies the minimum number of occurrences of the metadata
+         attribute that may be reported at this point in the metadata report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int.
+</code></pre>
+
+<pre><code>
+sdmx-mm:maxOccurs a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "maxOccurs"@en;
+    rdfs:comment "Specifies the maximum number of occurrences of the metadata
+         attribute that may be reported at this point in the metadata report."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeSpecification;
+    rdfs:range xsd:int.
 </code></pre>
 
 			</section>
