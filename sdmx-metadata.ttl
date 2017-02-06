@@ -98,11 +98,20 @@ sdmx-mm:metadataAttributeProperty a rdf:Property, owl:ObjectProperty;
     rdfs:range sdmx-mm:MetadataAttributeProperty;
 	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
-# Links a metadata attribute to its parent
+# Links a metadata attribute to its parent in the report structure
 
 sdmx-mm:parent a rdf:Property, owl:ObjectProperty;
     rdfs:label "parent"@en;
     rdfs:comment "Associates a metadata attribute to its parent in the report."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range sdmx-mm:MetadataAttributeSpecification;
+	rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Links a metadata attribute to the associated concept
+
+sdmx-mm:concept a rdf:Property, owl:ObjectProperty;
+    rdfs:label "concept"@en;
+    rdfs:comment "Gives the metadata concept associated to a MetadataAttributeProperty."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeProperty;
+    rdfs:range skos:Concept;
 	rdfs:isDefinedBy <http://example.org/sdmx-mm>.

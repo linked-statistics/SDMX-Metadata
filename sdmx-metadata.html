@@ -79,7 +79,11 @@
 				<tbody>
 					<tr>
 						<td>sdmx-mm:MetadataAttributeProperty</td>
-						<td><a href="#msd">Section ?. Metadata Structure Definition</a></td>
+						<td><a href="#metadata-structure-definition">Section 5. Metadata Structure Definition</a></td>
+					</tr>
+					<tr>
+						<td>sdmx-mm:MetadataAttributeSpecification</td>
+						<td><a href="#metadata-structure-definition">Section 5. Metadata Structure Definition</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -98,6 +102,11 @@
 						<td>dcterms</td>
 						<td>http://purl.org/dc/terms/</td>
 						<td>Dublin Core Metadata Initiative Metadata Terms ([[!DCTERMS]])</td>
+					</tr>
+					<tr>
+						<td>dqv</td>
+						<td>http://www.w3.org/ns/dqv#</td>
+						<td>Data Quality Vocabulary ([[vocab-dqv]])</td>
 					</tr>
 					<tr>
 						<td>foaf</td>
@@ -123,7 +132,7 @@
 		<section id="metadata-structure-definition">
 			<h2>The Metadata Structure Definition</h2>
 			<section id="metadata-attribute">
-				<h3>The Metadata Attribute</h2>
+				<h3>The Metadata Attribute</h3>
 				<p>An important design choice in Data Cube is to represent Data Structure Definition (DSD) components as RDF properties. The <code>qb:ComponentProperty</code> class is a sub-class of <code>rdf:Property</code>, and is itself specialized into <code>qb:DimensionProperty</code>, <code>qb:AttributeProperty</code>, etc. This allows to directly attach to the observations (instances of the <code>qb:Observation</code> class) the values of the dimensions, measures or attributes defined in the DSD.</p>
 
 				<p>In the SDMX Metadata Structure Definition (MSD), the metadata attribute is the equivalent of the DSD components. Therefore, following the Data Cube approach, we create:</p>
@@ -132,7 +141,7 @@ sdmx-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute"@en;
     rdfs:subClassOf rdf:Property.
 </code></pre>
-				<p>SDMX defines properties for the metadata attribute: a boolean <code>isPresentational</code> and integers1 giving the minimum and maximum number of occurrences of the attribute in a hierarchical context (see below). Likewise, the DSD dimension components have an order property, but the Data Cube model does not associate the order property to the <code>qb:DimensionPropery</code> or even to the <code>qb:ComponentProperty</code> but to a specific &#8220;enveloping&#8221; class, <code>qb:ComponentSpecification</code>. This allows a given dimension to be re-used in different DSDs, even if it does not appear at the same position. Similarly, we can define a specific class:</p>
+				<p>SDMX defines properties for the metadata attribute: a boolean <code>isPresentational</code> and integers giving the minimum and maximum number of occurrences of the attribute in a hierarchical context (see below). Likewise, the DSD dimension components have an order property, but the Data Cube model does not associate the order property to the <code>qb:DimensionPropery</code> or even to the <code>qb:ComponentProperty</code> but to a specific &#8220;enveloping&#8221; class, <code>qb:ComponentSpecification</code>. This allows a given dimension to be re-used in different DSDs, even if it does not appear at the same position. Similarly, we can define a specific class:</p>
 <pre><code>
 sdmx-mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute specification"@en;
@@ -201,7 +210,37 @@ sdmx-mm:maxOccurs a rdf:Property, owl:DatatypeProperty;
     rdfs:range xsd:int.
 </code></pre>
 
+				<p>Metadata attributes, like data structure definition components, have associated concepts. The Data Cube vocabulary defines the <code>qb:concept</code> property to materialize this link, but here again the property cannot be reused directly due to domain constraint. We therefore define:</p>
+
+<pre><code>
+sdmx-mm:concept a rdf:Property, owl:ObjectProperty;
+    rdfs:label "concept"@en;
+    rdfs:comment "Gives the metadata concept associated to a MetadataAttributeProperty."@en;
+    rdfs:domain sdmx-mm:MetadataAttributeProperty;
+    rdfs:range skos:Concept.
+</code></pre>
+				<p>Note that the <code>skos:Concept</code> values of this property can in fact be instances of the <code>dqv:Dimension</code> and <code>dqv:Category</code> classes defined by the Data Quality Vocabulary, since both classes specialize <code>skos:Concept</code>.</p>
+
+				<div class="issue">
+					<p>Should we deal with attribute representation?</p>
+				</div>
+
 			</section>
+
+			<section id="metadata-target">
+				<h3>The Metadata Target</h3>
+				<p>The metadata target...</p>
+			</section>
+
+			<section id="other-msd-objects">
+				<h3>Other Metadata Structure Definition objects</h3>
+				<p>Metadata attributes are contained in report structures. A report structure reports for metadata targets. The metadata strcuture definition is made of report structures and metadata targets.</p>
+			</section>
+
+		</section>
+
+		<section id="metadata-set">
+			<h2>The Metadata Set</h2>
 		</section>
 
 		<section class='appendix'>
