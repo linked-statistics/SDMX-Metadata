@@ -139,6 +139,7 @@
 <pre><code>
 sdmx-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute"@en;
+    rdfs:comment "Defines a specific type of metadata."@en;
     rdfs:subClassOf rdf:Property.
 </code></pre>
 				<p>SDMX defines properties for the metadata attribute: a boolean <code>isPresentational</code> and integers giving the minimum and maximum number of occurrences of the attribute in a hierarchical context (see below). Likewise, the DSD dimension components have an order property, but the Data Cube model does not associate the order property to the <code>qb:DimensionPropery</code> or even to the <code>qb:ComponentProperty</code> but to a specific &#8220;enveloping&#8221; class, <code>qb:ComponentSpecification</code>. This allows a given dimension to be re-used in different DSDs, even if it does not appear at the same position. Similarly, we can define a specific class:</p>
@@ -229,7 +230,23 @@ sdmx-mm:concept a rdf:Property, owl:ObjectProperty;
 
 			<section id="metadata-target">
 				<h3>The Metadata Target</h3>
-				<p>The metadata target...</p>
+				<p>Another important component of the metadata structure definition is the metadata target, which allows to specify what the metadata attach to. The metadata target is specified as a combination of target objects, which possible types are exhaustively listed in the SDMX specification: a target object can be a data set, a full or partial key in a data set, a report period, the content of an attachment constraint, or any SDMX identifiable artefact (e.g. a data provider, a dimension in a data structure definition, etc.).</p>
+				<p>Like the metadata attribute, the target object derives from the SDMX base abstract class <code>Component</code>, and it can also be rendered as an RDF property, but there is no need here of an intermediary <code>TargetObjectSpecification</code> class: the only information contained in any of the <code>TargetObject</code> concrete sub-classes is an <code>objectType</code> property, which will be represented in the RDF world as the <code>rdf:type</code> of the property object.</p>
+				<p>The previous considerations lead to the following definitions:</p>
+
+<pre><code>
+sdmx-mm:MetadataTarget a rdfs:Class, owl:Class;
+    rdfs:label "Metadata target"@en;
+    rdfs:comment "Defines a part of a data or metadata set to which the metadata is attached."@en.
+</code></pre>
+
+<pre><code>
+sdmx-mm:targetObject a rdf:Property, owl:ObjectProperty;
+    rdfs:label "target object"@en;
+    rdfs:comment "Indicates a target object that is part of the metadata target definition."@en;
+    rdfs:domain sdmx-mm:MetadataTarget.
+</code></pre>
+
 			</section>
 
 			<section id="other-msd-objects">
