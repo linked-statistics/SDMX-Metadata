@@ -30,6 +30,8 @@
 
 		<section id='abstract'>
 			<p>We try in this paper to express the &#8220;metadata&#8221; part of the SDMX information model (Metadata Structure Definition and Metadata Set) ([[!SDMX-MM]]) using RDF and related standards. We will take example on the work done for the Data Cube  ([[!vocab-data-cube]]), which is an RDF vocabulary expressing the &#8220;data&#8221; part of the SDMX model. We use in the following the <code>sdmx-mm</code> prefix for the namespace (to be specified) where we define the vocabulary.</p>
+
+			<p>The vocabulary defined in this document is also available in these non-normative formats: <a href="sdmx-metadata.ttl">Turtle</a>.</p>
 		</section>
 
 		<section id='sotd'>
@@ -308,8 +310,37 @@ sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
 
 			<section id="other-msd-objects">
 				<h3>Other Metadata Structure Definition objects</h3>
-				<p>Metadata attributes are contained in report structures. A report structure reports for metadata targets. The metadata strcuture definition is made of report structures and metadata targets.</p>
+				<p>The remaining objects in this part of the SDMX metadata model are the <code>MetadataStructureDefinition</code> itself and the <code>ReportStructure</code>. Metadata attributes are contained in report structures, and a report structure reports for one or several metadata targets; the metadata structure definition is made of report structures and metadata targets. The following definitions reflect these relations. Note that no property is defined to figure the composition relations between the MSD and the report structures or metadata targets: it is suggested to use the <code>hasPart</code>/<code>isPartOf</code> properties from the Dublin Core vocabulary.</p>
 			</section>
+
+<pre><code>
+sdmx-mm:ReportStructure a rdfs:Class, owl:Class;
+    rdfs:label "Report structure"@en;
+    rdfs:comment "Defines a set of concepts that comprises the metadata attributes to be reported."@en.
+</code></pre>
+
+<pre><code>
+sdmx-mm:MetadataStructureDefinition a rdfs:Class, owl:Class;
+    rdfs:label "Metadata structure definition"@en;
+    rdfs:comment "A collection of metadata concepts, their structure and usage when used to collect
+        or disseminate reference metadata."@en.
+</code></pre>
+
+<pre><code>
+sdmx-mm:metadataAttributeSpecification a rdf:Property, owl:ObjectProperty;
+    rdfs:label "metadata attribute specification"@en;
+    rdfs:comment "An association to the metadata attributes relevant to the report structure."@en;
+    rdfs:domain sdmx-mm:ReportStructure;
+    rdfs:range sdmx-mm:MetadataAttributeSpecification.
+</code></pre>
+
+<pre><code>
+sdmx-mm:reportsFor a rdf:Property, owl:ObjectProperty;
+    rdfs:label "reports for"@en;
+    rdfs:comment "Associates the metadata targets for which this report structure is used."@en;
+    rdfs:domain sdmx-mm:ReportStructure;
+    rdfs:range sdmx-mm:MetadataTarget.
+</code></pre>
 
 		</section>
 
