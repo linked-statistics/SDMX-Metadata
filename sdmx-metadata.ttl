@@ -10,6 +10,7 @@
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
 
 @prefix sdmx-mm: <http://example.org/sdmx-mm#> .
 
@@ -24,9 +25,9 @@
     vann:preferredNamespacePrefix "sdmx-mm" ;
     vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
-    voaf:classNumber "6"^^xsd:integer ;
+    voaf:classNumber "9"^^xsd:integer ;
     voaf:propertyNumber "14"^^xsd:integer ;
-    owl:versionInfo "Version 0.2 - 2017-02-09" .
+    owl:versionInfo "Version 0.3 - 2017-02-09" .
 
 
 #################################################################
@@ -77,7 +78,30 @@ sdmx-mm:MetadataStructureDefinition a rdfs:Class, owl:Class;
     rdfs:comment "A collection of metadata concepts, their structure and usage when used to collect or disseminate reference metadata."@en;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
-	
+# The metadata set
+
+sdmx-mm:MetadataSet a rdfs:Class, owl:Class;
+    rdfs:label "Metadata set"@en;
+    rdfs:comment "An organized collection of metadata."@en;
+    rdfs:subClassOf prov:Entity;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# The metadata report
+
+sdmx-mm:MetadataReport a rdfs:Class, owl:Class;
+    rdfs:label "Metadata report"@en;
+    rdfs:comment "A set of values for metadata attributes defined in a report structure of a
+        metadata structure definition."@en;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# The target objet identification
+
+sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
+    rdfs:label "Target object key"@en;
+    rdfs:comment "Identifies the object to which the metadata are to be attached."@en;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+
 #################################################################
 # Data properties
 #################################################################

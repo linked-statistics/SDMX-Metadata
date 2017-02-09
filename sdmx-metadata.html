@@ -121,6 +121,11 @@
 						<td>FOAF Vocabulary Specification 0.99 ([[!FOAF]])</td>
 					</tr>
 					<tr>
+						<td>prov</td>
+						<td>http://www.w3.org/ns/prov#</td>
+						<td>PROV-O: The PROV Ontology ([[!prov-o]])</td>
+					</tr>
+					<tr>
 						<td>qb</td>
 						<td>http://purl.org/linked-data/cube#</td>
 						<td>The RDF Data Cube Vocabulary ([[!vocab-data-cube]])</td>
@@ -346,6 +351,55 @@ sdmx-mm:reportsFor a rdf:Property, owl:ObjectProperty;
 
 		<section id="metadata-set">
 			<h2>The Metadata Set</h2>
+
+			<section id="metadata-set-classes">
+				<h3>Classes</h3>
+				<p>The main objects in this part of the SDMX metadata model are the <code>MetadataSet</code>, the <code>MetadataReport</code> and the <code>TargetObjectKey</code>. These three classes are included in the RDF vocabulary with the same names, but note the following issue:</p>
+
+				<div class="issue">
+					<p>It would be more natural from a non purely SDMX perspective to use the name &#8220;metadata target&#8221; instead of &#8220;target object key&#8221;. The class currently named <code>MetadataTarget</code> (in the MSD part of the vocabulary) could be renamed <code>MetadataTargetSpecification</code>.</p>
+				</div>
+
+				<p>It is proposed to make the <code>MetadataSet</code> a sub-class of <code>prov:Entity</code> in order to be able to easily attach provenance information to it.</p>
+
+				<div class="issue">
+					<p>Should <code>MetadataSet</code> be also a sub-class of <code>dcat:Dataset</code>?</p>
+				</div>
+
+<pre><code>
+sdmx-mm:MetadataSet a rdfs:Class, owl:Class;
+    rdfs:label "Metadata set"@en;
+    rdfs:comment "An organized collection of metadata."@en;
+    rdfs:subClassOf prov:Entity.
+</code></pre>
+
+<pre><code>
+sdmx-mm:MetadataReport a rdfs:Class, owl:Class;
+    rdfs:label "Metadata report"@en;
+    rdfs:comment "A set of values for metadata attributes defined in a report structure of a
+        metadata structure definition."@en.
+</code></pre>
+
+<pre><code>
+sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
+    rdfs:label "Target object key"@en;
+    rdfs:comment "Identifies the object to which the metadata are to be attached."@en.
+</code></pre>
+
+				<p>A <code>DataProvider</code> is also present in the model, but it seems possible to represent this notion with existing RDF classes like <code>foaf:Agent</code> or <code>prov:Agent</code>, linked to the <code>MetadataSet</code> by properties such as <code>dcterms:publisher</code> or <code>prov:wasAttributedTo</code>. In consequence, we will not define a &#8220;data provider&#8221; class in the present vocabulary.</p>
+
+				<p>The other classes present in the model are hierarchies of specializations of two abstract classes: <code>ReportedAttribute</code>, a placeholder for a concrete value of a <code>MetadataAttribute</code>, and <code>ReportedAttribute</code>, a placeholder for a concrete value of a <code>TargetObject</code>. In the OWL vocabulary, the latter is replaced by the instances of <code>TargetObjectProperty</code> defined previously; the former has the semantics of a hierarchy of typed attribute values that can be represented in OWL without the need of new definitions.</p>
+
+				<div class="issue">
+					<p>Give an illustrative example.</p>
+				</div>
+
+			</section>
+
+			<section id="metadata-set-properties">
+				<h3>Properties</h3>
+			</section>
+
 		</section>
 
 		<section class='appendix'>
