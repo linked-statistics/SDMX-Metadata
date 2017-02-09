@@ -99,6 +99,11 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td>dcat</td>
+						<td>http://www.w3.org/ns/dcat#</td>
+						<td>Data Catalog Vocabulary ([[!vocab-dcat]])</td>
+					</tr>
+					<tr>
 						<td>dcterms</td>
 						<td>http://purl.org/dc/terms/</td>
 						<td>Dublin Core Metadata Initiative Metadata Terms ([[!DCTERMS]])</td>
@@ -122,6 +127,11 @@
 						<td>skos</td>
 						<td>http://www.w3.org/2004/02/skos/core#</td>
 						<td>Simple Knowledge Organization System</td>
+					</tr>
+					<tr>
+						<td>time</td>
+						<td>http://www.w3.org/2006/time#</td>
+						<td>Time Ontology in OWL ([[owl-time]])</td>
 					</tr>
 				</tbody>
 			</table>
@@ -241,11 +251,58 @@ sdmx-mm:MetadataTarget a rdfs:Class, owl:Class;
 </code></pre>
 
 <pre><code>
-sdmx-mm:targetObject a rdf:Property, owl:ObjectProperty;
+sdmx-mm:TargetObjectProperty a rdfs:Class, owl:Class;
+    rdfs:label "Target object"@en;
+    rdfs:comment "Defines a specific type of target object."@en;
+    rdfs:subClassOf rdf:Property.
+</code></pre>
+
+<pre><code>
+sdmx-mm:targetObjectProperty a rdf:Property, owl:ObjectProperty;
     rdfs:label "target object"@en;
     rdfs:comment "Indicates a target object that is part of the metadata target definition."@en;
-    rdfs:domain sdmx-mm:MetadataTarget.
+    rdfs:domain sdmx-mm:MetadataTarget;
+    rdfs:domain sdmx-mm:TargetObjectProperty.
 </code></pre>
+
+				<p>The five sub-classes of <code>TargetObject</code> that are defined in the SDMX model can actually be transposed as instances of the <code>TargetObjectProperty</code> property. Since the SDMX constraint construct is not yet part of any RDF specification, we will leave it out for now and define only four properties. Furthermore, we also generalize the range of these properties as follows:</p>
+				<ul>
+					<li>The range of the property corresponding to <code>DimensionDescriptorValuesTarget</code> is adapted to the Data Cube context and changed to <code>qb:ComponentSet</code>.</li>
+					<li>The range of the property corresponding to <code>IdentifiableObjetTarget</code> is left unspecified in order to match any RDF resource.</li>
+					<li>The range of the property corresponding to <code>ReportPeriodTarget</code> is generalized to <code>time:TemporalEntity</code>.</li>
+					<li>The range of the property corresponding to <code>DataSetTarget</code> is generalized from <code>qb:DataSet</code> (the Data Cube representation of the SDMX <code>DataSet</code>) to <code>dcat:Dataset</code>.</li>
+				</ul>
+
+<pre><code>
+sdmx-mm:componentSetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "component set target objet"@en;
+    rdfs:comment "Indicates a target object which is a component set."@en;
+	rdfs:range qb:ComponentSet.
+</code></pre>
+
+<pre><code>
+sdmx-mm:identifiableObjetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "identifiable object target objet"@en;
+    rdfs:comment "Indicates a target object which is any identifiable object."@en.
+</code></pre>
+
+<pre><code>
+sdmx-mm:reportPeriodTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "report period target objet"@en;
+    rdfs:comment "Indicates a target object which is a report period."@en;
+	rdfs:range time:TemporalEntity.
+</code></pre>
+
+<pre><code>
+sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "data set target objet"@en;
+    rdfs:comment "Indicates a target object which is a data set."@en;
+	rdfs:range dcat:Dataset.
+</code></pre>
+
+				<div class="issue">
+					<p>Specify the domain of these properties.</p>
+				</div>
 
 			</section>
 

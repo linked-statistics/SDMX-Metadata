@@ -1,6 +1,5 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
@@ -9,6 +8,11 @@
 @prefix voaf: <http://purl.org/vocommons/voaf#> .
 @prefix vann: <http://purl.org/vocab/vann/> .
 @prefix cc: <http://creativecommons.org/ns#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+
+@prefix sdmx-mm: <http://example.org/sdmx-mm#> .
+
 
 #################################################################
 # Ontology
@@ -20,9 +24,9 @@
     vann:preferredNamespacePrefix "sdmx-mm" ;
     vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
-    voaf:classNumber "2"^^xsd:integer ;
-    voaf:propertyNumber "6"^^xsd:integer ;
-    owl:versionInfo "Version 0.1 - 2017-02-04" .
+    voaf:classNumber "4"^^xsd:integer ;
+    voaf:propertyNumber "12"^^xsd:integer ;
+    owl:versionInfo "Version 0.2 - 2017-02-09" .
 
 
 #################################################################
@@ -51,7 +55,13 @@ sdmx-mm:MetadataTarget a rdfs:Class, owl:Class;
     rdfs:comment "Defines a part of a data or metadata set to which the metadata is attached."@en;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
+sdmx-mm:TargetObjectProperty a rdfs:Class, owl:Class;
+    rdfs:label "Target object"@en;
+    rdfs:comment "Defines a specific type of target object."@en;
+    rdfs:subClassOf rdf:Property;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
+	
 #################################################################
 # Data properties
 #################################################################
@@ -124,10 +134,36 @@ sdmx-mm:concept a rdf:Property, owl:ObjectProperty;
     rdfs:range skos:Concept;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
-# Links a metadata target to a target object that is part of its specification
+# Links a metadata target to a target object property that is part of its specification
 
-sdmx-mm:targetObject a rdf:Property, owl:ObjectProperty;
+sdmx-mm:targetObjectProperty a rdf:Property, owl:ObjectProperty;
     rdfs:label "target object"@en;
     rdfs:comment "Indicates a target object that is part of the metadata target definition."@en;
     rdfs:domain sdmx-mm:MetadataTarget;
+    rdfs:domain sdmx-mm:TargetObjectProperty;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Properties corresponding to the different pre-defined types of target objects
+
+sdmx-mm:componentSetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "component set target objet"@en;
+    rdfs:comment "Indicates a target object which is a component set."@en;
+	rdfs:range qb:ComponentSet;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+sdmx-mm:identifiableObjetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "identifiable object target objet"@en;
+    rdfs:comment "Indicates a target object which is any identifiable object."@en;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+sdmx-mm:reportPeriodTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "report period target objet"@en;
+    rdfs:comment "Indicates a target object which is a report period."@en;
+	rdfs:range time:TemporalEntity;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
+    rdfs:label "data set target objet"@en;
+    rdfs:comment "Indicates a target object which is a data set."@en;
+	rdfs:range dcat:Dataset;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
