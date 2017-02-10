@@ -11,6 +11,7 @@
 @prefix dcat: <http://www.w3.org/ns/dcat#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
 
 @prefix sdmx-mm: <http://example.org/sdmx-mm#> .
 
