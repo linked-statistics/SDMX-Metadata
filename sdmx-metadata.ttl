@@ -27,8 +27,8 @@
     vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
     voaf:classNumber "10"^^xsd:integer ;
-    voaf:propertyNumber "14"^^xsd:integer ;
-    owl:versionInfo "Version 0.3 - 2017-02-09" .
+    voaf:propertyNumber "17"^^xsd:integer ;
+    owl:versionInfo "Version 0.4 - 2017-02-17" .
 
 
 #################################################################
@@ -230,3 +230,27 @@ sdmx-mm:reportsFor a rdf:Property, owl:ObjectProperty;
     rdfs:comment "Associates the metadata targets for which this report structure is used."@en;
     rdfs:domain sdmx-mm:ReportStructure;
     rdfs:range sdmx-mm:MetadataTarget.
+
+# Links the reported attribute to the report that contains it
+
+sdmx-mm:metadataReport a rdf:Property, owl:ObjectProperty;
+    rdfs:label "metadata report"@en;
+    rdfs:comment "Associates the reported attribute to the report that contains it."@en;
+    rdfs:domain sdmx-mm:ReportedAttribute;
+    rdfs:range sdmx-mm:MetadataReport.
+
+# Links the metadata report to the relevant metadata target
+
+sdmx-mm:target a rdf:Property, owl:ObjectProperty;
+    rdfs:label "target"@en;
+    rdfs:comment "Associates the metadata report to the target definition it is designed for."@en;
+    rdfs:domain sdmx-mm:MetadataReport;
+    rdfs:range sdmx-mm:MetadataTarget.
+
+# Links the metadata report to the specific target that it documents
+
+sdmx-mm:attachesTo a rdf:Property, owl:ObjectProperty;
+    rdfs:label "attaches to"@en;
+    rdfs:comment "Associates the metadata report to the specific target that it documents."@en;
+    rdfs:domain sdmx-mm:MetadataReport;
+    rdfs:range sdmx-mm:TargetObjectKey.

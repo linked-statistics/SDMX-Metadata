@@ -396,7 +396,7 @@ sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
 					<p>Give an illustrative example.</p>
 				</div>
 
-				<p>The <code>ReportedAttribute</code> represents a value for a <code>MetadataAttribute</code>. We saw previously that the semantics of the metadata attributes was rendered by RDF properties, and we could define these properties directly on the metadata report (i.e. specify <code>MetadataReport</code>) as their domain), but it is more coherent with the SDMX metadata model to create a specific type of resource, which plays in fact the same role as the qb:Observation for the data set. In reference to the SDMX model, this type will be named <code>ReportedAttribute</code>.</p>
+				<p>The <code>ReportedAttribute</code> represents a value for a <code>MetadataAttribute</code>. We saw previously that the semantics of the metadata attributes was rendered by RDF properties, and we could define these properties directly on the metadata report (i.e. specify <code>MetadataReport</code>) as their domain), but it is more coherent with the SDMX metadata model to create a specific type of resource, which plays in fact the same role as the qb:Observation for the data set. In reference to the SDMX model, this type will be named <code>ReportedAttribute</code>. On the other hand, it does not seem useful to reflect in OWL the different sub-classes of <code>ReportedAttribute</code>: they only specify the type of the attribute value, which is in RDF represented by the data type or class of the property range.</p>
 
 <pre><code>
 sdmx-mm:ReportedAttribute a rdfs:Class, owl:Class;
@@ -407,7 +407,44 @@ sdmx-mm:ReportedAttribute a rdfs:Class, owl:Class;
 			</section>
 
 			<section id="metadata-set-properties">
+
 				<h3>Properties</h3>
+
+				<p>A number of object properties must be defined in order to connect the classes described above:</p>
+				<ul>
+					<li>As we did for the metadata structure definition objects, we will use the <code>hasPart</code>/<code>isPartOf</code> properties from the Dublin Core vocabulary in order to represent the composition relation between the metadata set and the metadata report.</li>
+					<li>The composition between the metadata report and the reported attribute has a specific name in SMDX, but it is rather vague (&#8220;<code>metadata</code>&#8221;). By analogy with the Data Cube model, where <code>qb:dataSet</code> goes from <code>qb:Observation</code> to <code>qb:DataSet</code>, we will make the property go from the <code>ReportedAttribute</code> to the <code>MetadataReport</code> and name it <code>metadataReport</code>.</li>
+					<li>The other properties are transposed directly: <code>target</code> from <code>MetadataReport</code> to <code>MetadataTarget</code> and <code>attachesTo</code> from <code>MetadataReport</code> to <code>TargetObjectKey</code>.</li>
+				</ul>
+
+<pre><code>
+sdmx-mm:metadataReport a rdf:Property, owl:ObjectProperty;
+    rdfs:label "metadata report"@en;
+    rdfs:comment "Associates the reported attribute to the report that contains it."@en;
+    rdfs:domain sdmx-mm:ReportedAttribute;
+    rdfs:range sdmx-mm:MetadataReport.
+</code></pre>
+
+<pre><code>
+sdmx-mm:target a rdf:Property, owl:ObjectProperty;
+    rdfs:label "target"@en;
+    rdfs:comment "Associates the metadata report to the target definition it is designed for."@en;
+    rdfs:domain sdmx-mm:MetadataReport;
+    rdfs:range sdmx-mm:MetadataTarget.
+</code></pre>
+
+<pre><code>
+sdmx-mm:attachesTo a rdf:Property, owl:ObjectProperty;
+    rdfs:label "attaches to"@en;
+    rdfs:comment "Associates the metadata report to the specific target that it documents."@en;
+    rdfs:domain sdmx-mm:MetadataReport;
+    rdfs:range sdmx-mm:TargetObjectKey.
+</code></pre>
+
+				<div class="issue">
+					<p>Do we define the <code>parent</code> for the <code>ReportedAttribute</code>? It is probably useful in different use cases. If yes, do we extend the property already introduces or do we create two different properties?</p>
+				</div>
+
 				<p>Only the <code>MetadataSet</code> class defines attributes.</p>
 
 				<div class="issue">
