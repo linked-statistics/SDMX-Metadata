@@ -143,7 +143,7 @@
 				</tbody>
 			</table>
 			<p>RDF, RDFS and OWL vocabularies are also used, with their usual URIs and prefixes.</p>
-			<p>The RDF examples are expressed with the Terse RDF Triple language (Turtle) [[!turtle]]. Unless otherwise specified, these examples use http://example.org/ns/ as a base namespace; resource names between angle brackets represent URIs in this namespace. Note however that individual resource names used as examples are entirely fictious.</p>
+			<p>The RDF examples are expressed with the Terse RDF Triple language (Turtle) [[!turtle]]. Unless otherwise specified, these examples use http://example.org/ns/ as a base namespace; resource names between angle brackets represent URIs in this namespace. Note however that individual resource names used as examples are entirely fictitious.</p>
 		</section>
 
 		<section id="metadata-structure-definition">
@@ -315,7 +315,7 @@ sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
 
 			<section id="other-msd-objects">
 				<h3>Other Metadata Structure Definition objects</h3>
-				<p>The remaining objects in this part of the SDMX metadata model are the <code>MetadataStructureDefinition</code> itself and the <code>ReportStructure</code>. Metadata attributes are contained in report structures, and a report structure reports for one or several metadata targets; the metadata structure definition is made of report structures and metadata targets. The following definitions reflect these relations. Note that no property is defined to figure the composition relations between the MSD and the report structures or metadata targets: it is suggested to use the <code>hasPart</code>/<code>isPartOf</code> properties from the Dublin Core vocabulary.</p>
+				<p>The remaining objects in this part of the SDMX metadata model are the <code>MetadataStructureDefinition</code> itself and the <code>ReportStructure</code>. Metadata attributes are contained in report structures, and a report structure reports for one or several metadata targets; the metadata structure definition is made of report structures and metadata targets. The following definitions reflect these relations. Note that no property is defined to express the composition relations between the MSD and the report structures or metadata targets: it is suggested to use the <code>hasPart</code>/<code>isPartOf</code> properties from the Dublin Core vocabulary.</p>
 			</section>
 
 <pre><code>
@@ -354,7 +354,7 @@ sdmx-mm:reportsFor a rdf:Property, owl:ObjectProperty;
 
 			<section id="metadata-set-classes">
 				<h3>Classes</h3>
-				<p>The main objects in this part of the SDMX metadata model are the <code>MetadataSet</code>, the <code>MetadataReport</code> and the <code>TargetObjectKey</code>. These three classes are included in the RDF vocabulary with the same names, but note the following issue:</p>
+				<p>The main concrete classes in this part of the SDMX metadata model are the <code>MetadataSet</code>, the <code>MetadataReport</code> and the <code>TargetObjectKey</code>. These three classes are included in the RDF vocabulary with the same names, but note the following issue:</p>
 
 				<div class="issue">
 					<p>It would be more natural from a non purely SDMX perspective to use the name &#8220;metadata target&#8221; instead of &#8220;target object key&#8221;. The class currently named <code>MetadataTarget</code> (in the MSD part of the vocabulary) could be renamed <code>MetadataTargetSpecification</code>.</p>
@@ -386,18 +386,33 @@ sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
     rdfs:comment "Identifies the object to which the metadata are to be attached."@en.
 </code></pre>
 
-				<p>A <code>DataProvider</code> is also present in the model, but it seems possible to represent this notion with existing RDF classes like <code>foaf:Agent</code> or <code>prov:Agent</code>, linked to the <code>MetadataSet</code> by properties such as <code>dcterms:publisher</code> or <code>prov:wasAttributedTo</code>. In consequence, we will not define a &#8220;data provider&#8221; class in the present vocabulary.</p>
+				<p>A <code>DataProvider</code> class is also present in the model, but it seems possible to represent this notion with existing RDF classes like <code>foaf:Agent</code> or <code>prov:Agent</code>, linked to the <code>MetadataSet</code> by properties such as <code>dcterms:publisher</code> or <code>prov:wasAttributedTo</code>. In consequence, we do not define a &#8220;data provider&#8221; class in the present vocabulary.</p>
 
-				<p>The other classes present in the model are hierarchies of specializations of two abstract classes: <code>ReportedAttribute</code>, a placeholder for a concrete value of a <code>MetadataAttribute</code>, and <code>ReportedAttribute</code>, a placeholder for a concrete value of a <code>TargetObject</code>. In the OWL vocabulary, the latter is replaced by the instances of <code>TargetObjectProperty</code> defined previously; the former has the semantics of a hierarchy of typed attribute values that can be represented in OWL without the need of new definitions.</p>
+				<p>The other classes present in the model are hierarchies of specializations of two abstract classes: <code>TargetObjectValue</code> and <code>ReportedAttribute</code>.</p>
+
+				<p>The <code>TargetObjectValue</code> allows to specify a concrete value of a <code>TargetObject</code> (a component of the <code>MetadataTarget</code>). The equivalent in an RDF context will be an instance of a class defined above as range of one of the <code>TargetObjectProperty</code> properties, for example a given <code>dcat:Dataset</code> or <code>qb:ComponentSet</code>. These resources will be identified by their URI and come with their characteristics as RDF property values. In consequence, it does not seem necessary to introduce an additional OWL construct corresponding to the <code>TargetObjectValue</code> or its sub-classes.</p>
 
 				<div class="issue">
 					<p>Give an illustrative example.</p>
 				</div>
 
+				<p>The <code>ReportedAttribute</code> represents a value for a <code>MetadataAttribute</code>. We saw previously that the semantics of the metadata attributes was rendered by RDF properties, and we could define these properties directly on the metadata report (i.e. specify <code>MetadataReport</code>) as their domain), but it is more coherent with the SDMX metadata model to create a specific type of resource, which plays in fact the same role as the qb:Observation for the data set. In reference to the SDMX model, this type will be named <code>ReportedAttribute</code>.</p>
+
+<pre><code>
+sdmx-mm:ReportedAttribute a rdfs:Class, owl:Class;
+    rdfs:label "Reported attribute"@en;
+    rdfs:comment "Value of a metadata attribute."@en.
+</code></pre>
+
 			</section>
 
 			<section id="metadata-set-properties">
 				<h3>Properties</h3>
+				<p>Only the <code>MetadataSet</code> class defines attributes.</p>
+
+				<div class="issue">
+					<p>A <code>dataExtractionDate</code> attribute is defined in the model definitions (§ 7.4.2.2) but does not appear in the metadata set class diagram.</p>
+				</div>
 			</section>
 
 		</section>

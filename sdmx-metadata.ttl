@@ -26,7 +26,7 @@
     vann:preferredNamespacePrefix "sdmx-mm" ;
     vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
-    voaf:classNumber "9"^^xsd:integer ;
+    voaf:classNumber "10"^^xsd:integer ;
     voaf:propertyNumber "14"^^xsd:integer ;
     owl:versionInfo "Version 0.3 - 2017-02-09" .
 
@@ -99,6 +99,13 @@ sdmx-mm:MetadataReport a rdfs:Class, owl:Class;
 sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
     rdfs:label "Target object key"@en;
     rdfs:comment "Identifies the object to which the metadata are to be attached."@en;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# The reported metadata attribute
+
+sdmx-mm:ReportedAttribute a rdfs:Class, owl:Class;
+    rdfs:label "Reported attribute"@en;
+    rdfs:comment "Value of a metadata attribute."@en;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
 
