@@ -445,7 +445,15 @@ sdmx-mm:attachesTo a rdf:Property, owl:ObjectProperty;
 					<p>Do we define the <code>parent</code> for the <code>ReportedAttribute</code>? It is probably useful in different use cases. If yes, do we extend the property already introduces or do we create two different properties?</p>
 				</div>
 
-				<p>Only the <code>MetadataSet</code> class defines attributes.</p>
+				<p>Only the <code>MetadataSet</code> class defines specific attributes, which are in fact common to all SDMX data sets and not particularly relevant for metadata set; not all need to be included in the OWL vocabulary.</p>
+				<ul>
+					<li><code>setId</code> provides an identification of the metadata set, which is not necessary in an RDF context.</li>
+					<li><code>action</code> is meant to specify the action to be taken on reception of the metadata set (update, replace, delete); this is a bit specific to SDMX message exchanges and it is proposed to ignore this attribute for now.</li>
+					<li>The other attributes represent temporal properties related to the metadata set: validity period of the metadata, beginning and end of the reporting period, publication year and period.</li>
+				</ul>
+				<p>Regarding the validity period, it is proposed not to create yet another <code>validFrom</code>/<code>validTo</code> property couple until the utility of this information is clearly established in precise use cases. We can also consider that the information on the publication date can be represented with the simple <code>issued</code> Dublin Core property.</p>
+
+				<p>For the remaining attributes on the reporting period, it is proposed to create to properties: <code>reportingBegin</code> and <code>reportingEnd</code>. It is preferable to keep the information at that level simple and generic, so those properties will be defined as data properties with <code>xs:date</code> type. More detailed information on the reporting period for specific reports in the metadata set can be given with the <code>reportPeriodTarget</code> defined above.
 
 				<div class="issue">
 					<p>A <code>dataExtractionDate</code> attribute is defined in the model definitions (§ 7.4.2.2) but does not appear in the metadata set class diagram.</p>

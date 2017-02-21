@@ -27,8 +27,8 @@
     vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
     voaf:classNumber "10"^^xsd:integer ;
-    voaf:propertyNumber "17"^^xsd:integer ;
-    owl:versionInfo "Version 0.4 - 2017-02-17" .
+    voaf:propertyNumber "19"^^xsd:integer ;
+    owl:versionInfo "Version 0.5 - 2017-02-21" .
 
 
 #################################################################
@@ -147,6 +147,22 @@ sdmx-mm:maxOccurs a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "Specifies the maximum number of occurrences of the metadata attribute that may be reported at this point in the metadata report."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:int;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+# Beginning and end of the reporting period for a metadata set
+
+sdmx-mm:reportingBegin a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "reporting begin"@en;
+    rdfs:comment "A specific time period in a known system of time periods that identifies the start period of a report."@en;
+    rdfs:domain sdmx-mm:MetadataSet;
+    rdfs:range xsd:date;
+    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+
+sdmx-mm:reportingEnd a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "reporting end"@en;
+    rdfs:comment "A specific time period in a known system of time periods that identifies the end period of a report."@en;
+    rdfs:domain sdmx-mm:MetadataSet;
+    rdfs:range xsd:date;
     rdfs:isDefinedBy <http://example.org/sdmx-mm>.
 
 
