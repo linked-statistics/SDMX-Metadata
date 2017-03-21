@@ -328,7 +328,6 @@ sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
 			<section id="other-msd-objects">
 				<h3>Other Metadata Structure Definition objects</h3>
 				<p>The remaining objects in this part of the SDMX metadata model are the <code>MetadataStructureDefinition</code> itself and the <code>ReportStructure</code>. Metadata attributes are contained in report structures, and a report structure reports for one or several metadata targets; the metadata structure definition is made of report structures and metadata targets. The following definitions reflect these relations. Note that no property is defined to express the composition relations between the MSD and the report structures or metadata targets: it is suggested to use the <code>hasPart</code>/<code>isPartOf</code> properties from the Dublin Core vocabulary.</p>
-			</section>
 
 <pre><code>
 sdmx-mm:ReportStructure a rdfs:Class, owl:Class;
@@ -359,6 +358,13 @@ sdmx-mm:reportsFor a rdf:Property, owl:ObjectProperty;
     rdfs:range sdmx-mm:MetadataTarget.
 </code></pre>
 
+				<p>The following figure shows the metadata structure definition and its constituents.</p>
+				<figure id="image-msd">
+					<img src="img/sdmx-mm-msd.png" alt="Metadata structure definition overview" title="Metadata structure definition overview"/>
+					<figcaption>Metadata structure definition overview</figcaption>
+				</figure>
+
+			</section>
 		</section>
 
 		<section id="metadata-set">
@@ -471,6 +477,12 @@ sdmx-mm:attachesTo a rdf:Property, owl:ObjectProperty;
 					<p>A <code>dataExtractionDate</code> attribute is defined in the model definitions (§ 7.4.2.2) but does not appear in the metadata set class diagram.</p>
 				</div>
 			</section>
+
+			<p>The following figure represents the main objects defined in this section.</p>
+			<figure id="image-ms">
+				<img src="img/sdmx-mm-ms.png" alt="Metadata set overview" title="Metadata set overview"/>
+				<figcaption>Metadata set overview</figcaption>
+			</figure>
 
 		</section>
 
