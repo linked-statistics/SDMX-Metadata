@@ -29,7 +29,7 @@
 	<body>
 
 		<section id='abstract'>
-			<p>We try in this paper to express the &#8220;metadata&#8221; part of the SDMX information model (Metadata Structure Definition and Metadata Set) ([[!SDMX-MM]]) using RDF and related standards. We will take example on the work done for the Data Cube  ([[!vocab-data-cube]]), which is an RDF vocabulary expressing the &#8220;data&#8221; part of the SDMX model. We use in the following the <code>sdmx-mm</code> prefix for the namespace (to be specified) where we define the vocabulary.</p>
+			<p>We try in this paper to express the &#8220;metadata&#8221; part of the SDMX information model (Metadata Structure Definition and Metadata Set) ([[!SDMX-MM]]) using RDF and related standards. We will take example on the work done for the Data Cube ([[!vocab-data-cube]]), which is an RDF vocabulary expressing the &#8220;data&#8221; part of the SDMX model. We use in the following the <code>sdmx-mm</code> prefix for the namespace (to be specified) where we define the vocabulary.</p>
 
 			<p>The vocabulary defined in this document is also available in these non-normative formats: <a href="sdmx-metadata.ttl">Turtle</a>.</p>
 		</section>
@@ -40,11 +40,11 @@
 
 		<section>
 			<h2>Background and Motivation</h2>
-			<p>The SDMX metadata information model is an important part of the SDMX model. In particular, the SIMS model is based on it.</p>
+			<p>SDMX is one of the most important metadata standards for the Official Statistics community. At the heart of the standard is the SDMX information model (SDMX-IM), which covers in particular two main parts: one about data (data sets and data structure definitions) and one about metadata (metadata sets and metadata sets definitions). The &#8220;data&#8221; part of the model gave birth to the Data Cube vocabulary, which is now widely used for the publication of statistical linked data. The SDMX &#8220;metadata&#8221; part of the SDMX information model is also an important component: in particular, the standards defined by Eurostat for the quality reporting (cf. SIMS) are based on it.</p>
 			<div class="issue">
 				<p>Add SIMS in biblio.</p>
 			</div>
-			<p>For organizations using RDF as a metadata format, it is useful to have a standard way of representing SDMX metadata.</p>
+			<p>For organizations using RDF for the representation of metadata, it is useful to have a standard way of representing SDMX metadata.</p>
 			<p>Conformance to the SDMX model is to be balanced with the need to describe metadata for non-SDMX data.</p>
 			<p>Since quality metadata is a notable use case, we try also to link to the Data Quality Vocabulary ([[vocab-dqv]]).</p>
 		</section>
@@ -89,6 +89,10 @@
 					</tr>
 				</tbody>
 			</table>
+			<div class="issue">
+				<p>Complete list.</p>
+			</div>
+
 			<p>Other vocabularies used in this document are listed in the table below, with their namespaces and associated prefixes.</p>
 			<table class="simple">
 				<caption>Table 2. Other vocabularies used in this document</caption>
