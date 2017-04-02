@@ -13,22 +13,22 @@
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix qb: <http://purl.org/linked-data/cube#> .
 
-@prefix sdmx-mm: <http://example.org/sdmx-mm#> .
+@prefix sdmx-mm: <http://www.w3.org/ns/sdmx-mm#> .
 
 
 #################################################################
 # Ontology
 #################################################################
 
-<http://example.org/sdmx-mm> a owl:Ontology, voaf:Vocabulary ;
+<http://www.w3.org/ns/sdmx-mm> a owl:Ontology, voaf:Vocabulary ;
     dc:title "A vocabulary for representing SDMX metadata"@en ;
     dc:creator "Franck Cotton" ;
     vann:preferredNamespacePrefix "sdmx-mm" ;
-    vann:preferredNamespaceUri <http://example.org/sdmx-mm#> ;
+    vann:preferredNamespaceUri <http://www.w3.org/ns/sdmx-mm#> ;
     cc:license <http://creativecommons.org/licenses/by/4.0/> ;
     voaf:classNumber "10"^^xsd:integer ;
     voaf:propertyNumber "19"^^xsd:integer ;
-    owl:versionInfo "Version 0.5 - 2017-02-21" .
+    owl:versionInfo "Version 0.5.1 - 2017-04-02" .
 
 
 #################################################################
@@ -41,21 +41,21 @@ sdmx-mm:MetadataAttributeProperty a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute"@en;
     rdfs:comment "Defines a specific type of metadata."@en;
     rdfs:subClassOf rdf:Property;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Specification related to a metadata attribute
 
 sdmx-mm:MetadataAttributeSpecification a rdfs:Class, owl:Class;
     rdfs:label "Metadata attribute specification"@en;
     rdfs:comment "Used to define properties of a metadata attribute which are specific to its usage in an MSD."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The metadata target
 
 sdmx-mm:MetadataTarget a rdfs:Class, owl:Class;
     rdfs:label "Metadata target"@en;
     rdfs:comment "Defines a part of a data or metadata set to which the metadata is attached."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # RDF property corresponding to the target object
 
@@ -63,21 +63,21 @@ sdmx-mm:TargetObjectProperty a rdfs:Class, owl:Class;
     rdfs:label "Target object"@en;
     rdfs:comment "Defines a specific type of target object."@en;
     rdfs:subClassOf rdf:Property;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The report structure
 
 sdmx-mm:ReportStructure a rdfs:Class, owl:Class;
     rdfs:label "Report structure"@en;
     rdfs:comment "Defines a set of concepts that comprises the metadata attributes to be reported."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The metadata structure definition
 
 sdmx-mm:MetadataStructureDefinition a rdfs:Class, owl:Class;
     rdfs:label "Metadata structure definition"@en;
     rdfs:comment "A collection of metadata concepts, their structure and usage when used to collect or disseminate reference metadata."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The metadata set
 
@@ -85,28 +85,28 @@ sdmx-mm:MetadataSet a rdfs:Class, owl:Class;
     rdfs:label "Metadata set"@en;
     rdfs:comment "An organized collection of metadata."@en;
     rdfs:subClassOf prov:Entity;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The metadata report
 
 sdmx-mm:MetadataReport a rdfs:Class, owl:Class;
     rdfs:label "Metadata report"@en;
     rdfs:comment "A set of values for metadata attributes defined in a report structure of a metadata structure definition."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The target objet identification
 
 sdmx-mm:TargetObjectKey a rdfs:Class, owl:Class;
     rdfs:label "Target object key"@en;
     rdfs:comment "Identifies the object to which the metadata are to be attached."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # The reported metadata attribute
 
 sdmx-mm:ReportedAttribute a rdfs:Class, owl:Class;
     rdfs:label "Reported attribute"@en;
     rdfs:comment "Value of a metadata attribute."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 
 #################################################################
@@ -120,7 +120,7 @@ sdmx-mm:isPresentational a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "When true, indicates that an attribute is for presentation purpose only and cannot have a value by itself."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:boolean;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Indicates the order of the attributes in the report
 
@@ -129,7 +129,7 @@ sdmx-mm:order a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "Indicates a priority order for the attributes of metadata sets with this structure."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:int;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Maximum number of occurrences of the attribute in a given context
 
@@ -138,7 +138,7 @@ sdmx-mm:minOccurs a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "Specifies the minimum number of occurrences of the metadata attribute that may be reported at this point in the metadata report."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:int;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Maximum number of occurrences of the attribute in a given context
 
@@ -147,7 +147,7 @@ sdmx-mm:maxOccurs a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "Specifies the maximum number of occurrences of the metadata attribute that may be reported at this point in the metadata report."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range xsd:int;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Beginning and end of the reporting period for a metadata set
 
@@ -156,14 +156,14 @@ sdmx-mm:reportingBegin a rdf:Property, owl:DatatypeProperty;
     rdfs:comment "A specific time period in a known system of time periods that identifies the start period of a report."@en;
     rdfs:domain sdmx-mm:MetadataSet;
     rdfs:range xsd:date;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 sdmx-mm:reportingEnd a rdf:Property, owl:DatatypeProperty;
     rdfs:label "reporting end"@en;
     rdfs:comment "A specific time period in a known system of time periods that identifies the end period of a report."@en;
     rdfs:domain sdmx-mm:MetadataSet;
     rdfs:range xsd:date;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 
 #################################################################
@@ -177,7 +177,7 @@ sdmx-mm:metadataAttributeProperty a rdf:Property, owl:ObjectProperty;
     rdfs:comment "Indicates a metadata attribute property associated to the metadata attribute specification."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range sdmx-mm:MetadataAttributeProperty;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Links a metadata attribute to its parent in the report structure
 
@@ -186,7 +186,7 @@ sdmx-mm:parent a rdf:Property, owl:ObjectProperty;
     rdfs:comment "Associates a metadata attribute to its parent in the report."@en;
     rdfs:domain sdmx-mm:MetadataAttributeSpecification;
     rdfs:range sdmx-mm:MetadataAttributeSpecification;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Links a metadata attribute to the associated concept
 
@@ -195,7 +195,7 @@ sdmx-mm:concept a rdf:Property, owl:ObjectProperty;
     rdfs:comment "Gives the metadata concept associated to a MetadataAttributeProperty."@en;
     rdfs:domain sdmx-mm:MetadataAttributeProperty;
     rdfs:range skos:Concept;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Links a metadata target to a target object property that is part of its specification
 
@@ -204,7 +204,7 @@ sdmx-mm:targetObjectProperty a rdf:Property, owl:ObjectProperty;
     rdfs:comment "Indicates a target object that is part of the metadata target definition."@en;
     rdfs:domain sdmx-mm:MetadataTarget;
     rdfs:domain sdmx-mm:TargetObjectProperty;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Properties corresponding to the different pre-defined types of target objects
 
@@ -212,24 +212,24 @@ sdmx-mm:componentSetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
     rdfs:label "component set target objet"@en;
     rdfs:comment "Indicates a target object which is a component set."@en;
 	rdfs:range qb:ComponentSet;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 sdmx-mm:identifiableObjetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
     rdfs:label "identifiable object target objet"@en;
     rdfs:comment "Indicates a target object which is any identifiable object."@en;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 sdmx-mm:reportPeriodTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
     rdfs:label "report period target objet"@en;
     rdfs:comment "Indicates a target object which is a report period."@en;
 	rdfs:range time:TemporalEntity;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 sdmx-mm:datasetTarget a rdf:Property, sdmx-mm:TargetObjectProperty;
     rdfs:label "data set target objet"@en;
     rdfs:comment "Indicates a target object which is a data set."@en;
 	rdfs:range dcat:Dataset;
-    rdfs:isDefinedBy <http://example.org/sdmx-mm>.
+    rdfs:isDefinedBy <http://www.w3.org/ns/sdmx-mm>.
 
 # Links the report structure to the relevant metadata attributes
 
